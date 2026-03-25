@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập – Na Coffee</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="index.html" class="logo">Na Coffee</a>
+      <div class="nav-actions">
+        <a href="register.html" class="nav-link-btn">Đăng ký</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1>Đăng nhập</h1>
+      <form onsubmit="handleLogin(event)">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Mật khẩu" required />
+        <p class="auth-error" id="loginError"></p>
+        <button type="submit" class="btn-primary" id="loginBtn">Đăng nhập</button>
+      </form>
+      <p class="auth-footer">Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+
+    // Redirect if already logged in
+    if (isLoggedIn()) window.location.href = redirectTo;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errEl = document.getElementById('loginError');
+      errEl.textContent = '';
+      btn.disabled = true; btn.textContent = 'Đang đăng nhập...';
+
+      const result = login(
+        document.getElementById('email').value,
+        document.getElementById('password').value
+      );
+
+      if (!result.ok) {
+        errEl.textContent = result.error;
+        btn.disabled = false; btn.textContent = 'Đăng nhập';
+        return;
+      }
+      window.location.href = redirectTo;
+    }
+  </script>
+</body>
+</html>

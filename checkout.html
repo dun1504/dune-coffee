@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh toán – Na Coffee</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="index.html" class="logo">Na Coffee</a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-link-btn">← Tiếp tục mua</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="checkout-page">
+    <h1>Thanh toán</h1>
+    <div id="emptyCheckout" class="empty-checkout" style="display:none">
+      <p>Giỏ hàng trống. <a href="index.html" style="color:#d97706">Quay lại mua hàng</a></p>
+    </div>
+    <div class="checkout-grid" id="checkoutContent">
+      <!-- Order summary -->
+      <div class="checkout-section">
+        <h2>Đơn hàng của bạn</h2>
+        <div id="orderSummary"></div>
+        <div class="order-total">
+          <span>Tổng cộng:</span>
+          <span id="checkoutTotal">0đ</span>
+        </div>
+      </div>
+
+      <!-- Delivery form -->
+      <div class="checkout-section">
+        <h2>Thông tin giao hàng</h2>
+        <form class="checkout-form" onsubmit="placeOrder(event)">
+          <input type="text" id="deliveryName" placeholder="Họ tên" required />
+          <input type="tel" id="deliveryPhone" placeholder="Số điện thoại" required />
+          <input type="text" id="deliveryAddress" placeholder="Địa chỉ" required />
+          <textarea id="deliveryNote" placeholder="Ghi chú (tuỳ chọn)" rows="3"></textarea>
+          <div>
+            <label style="font-size:.875rem;font-weight:600;display:block;margin-bottom:.5rem;">Phương thức thanh toán</label>
+            <label style="font-size:.875rem;display:flex;align-items:center;gap:.5rem;">
+              <input type="radio" name="payment" value="cod" checked /> Thanh toán khi nhận hàng (COD)
+            </label>
+          </div>
+          <button type="submit" class="btn-primary" id="placeOrderBtn">Đặt hàng</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function renderSummary() {
+      const cart = getCart();
+      if (!cart.length) {
+        document.getElementById('checkoutContent').style.display = 'none';
+        document.getElementById('emptyCheckout').style.display = 'block';
+        return;
+      }
+      document.getElementById('orderSummary').innerHTML = cart.map(i => `
+        <div class="order-summary-item">
+          <span>${i.name} × ${i.qty}</span>
+          <span>${(i.price * i.qty).toLocaleString('vi-VN')}đ</span>
+        </div>`).join('');
+      document.getElementById('checkoutTotal').textContent = getCartTotal().toLocaleString('vi-VN') + 'đ';
+    }
+
+    function placeOrder(e) {
+      e.preventDefault();
+      const cart = getCart();
+      if (!cart.length) return;
+
+      const user = getUser();
+      const order = {
+        id: Date.now().toString(),
+        userId: user?.id || 'guest',
+        items: cart,
+        deliveryDetails: {
+          name: document.getElementById('deliveryName').value,
+          phone: document.getElementById('deliveryPhone').value,
+          address: document.getElementById('deliveryAddress').value,
+          note: document.getElementById('deliveryNote').value,
+        },
+        paymentMethod: 'cod',
+        total: getCartTotal(),
+        status: 'Chờ xác nhận',
+        date: new Date().toISOString(),
+      };
+
+      // Save order to localStorage
+      const orders = JSON.parse(localStorage.getItem('na_orders') || '[]');
+      orders.push(order);
+      localStorage.setItem('na_orders', JSON.stringify(orders));
+
+      clearCart();
+      showToast('Đặt hàng thành công!');
+
+      setTimeout(() => {
+        window.location.href = `order-success.html?id=${order.id}`;
+      }, 1200);
+    }
+
+    // Auth guard — redirect to login if not logged in, then come back
+    if (!isLoggedIn()) {
+      window.location.href = 'login.html?redirect=checkout.html';
+    } else {
+      renderSummary();
+      // Pre-fill name from user profile
+      const u = getUser();
+      if (u) document.getElementById('deliveryName').value = u.name || '';
+    }
+  </script>
+</body>
+</html>

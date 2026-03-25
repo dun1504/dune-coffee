@@ -1,0 +1,26 @@
+[
+  {
+    "id": "b1",
+    "title": "CÁCH NHẬN BIẾT HƯƠNG VỊ CÀ PHÊ",
+    "excerpt": "Cùng Arabica, Robusta cũng là loại cà phê nổi tiếng với hương vị đặc trưng...",
+    "content": "Cà phê không chỉ là một thức uống giúp tỉnh táo, mà còn là một trải nghiệm vị giác đầy tinh tế. Mỗi loại cà phê mang một hương vị riêng biệt, từ vị đắng nhẹ của Robusta đến vị chua thanh của Arabica.",
+    "image": "../img/blog-1.jpeg",
+    "date": "2022-08-12"
+  },
+  {
+    "id": "b2",
+    "title": "BẬT MÍ NHIỆT ĐỘ LÝ TƯỞNG ĐỂ PHA CÀ PHÊ",
+    "excerpt": "Nhiệt độ nước là một yếu tố quan trọng để tạo nên tách cà phê hoàn hảo...",
+    "content": "Nhiệt độ nước là một yếu tố quan trọng để có thể tạo nên những tách cà phê thơm ngon. Nhiệt độ lý tưởng để pha cà phê là từ 90-96°C, không nên dùng nước sôi 100°C vì sẽ làm cà phê bị đắng.",
+    "image": "../img/blog-2.jpeg",
+    "date": "2022-08-12"
+  },
+  {
+    "id": "b3",
+    "title": "NOEL SẮP TỚI, ĐI ĐÂU ĐỂ CHILL?",
+    "excerpt": "Những ngày cuối năm, đầu năm mới luôn là thời điểm tuyệt vời để thư giãn...",
+    "content": "Noel luôn là thời điểm tuyệt vời để chậm lại và tận hưởng không khí ấm áp. Hãy ghé Na Coffee để cùng nhau thưởng thức những tách cà phê nóng hổi trong không gian ấm cúng.",
+    "image": "../img/blog-3.jpeg",
+    "date": "2022-12-20"
+  }
+]

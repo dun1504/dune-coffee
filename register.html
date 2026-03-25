@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng ký – Na Coffee</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="index.html" class="logo">Na Coffee</a>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link-btn">Đăng nhập</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1>Đăng ký</h1>
+      <form onsubmit="handleRegister(event)">
+        <input type="text" id="name" placeholder="Họ tên" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Mật khẩu" required />
+        <p class="auth-error" id="registerError"></p>
+        <button type="submit" class="btn-primary" id="registerBtn">Đăng ký</button>
+      </form>
+      <p class="auth-footer">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    if (isLoggedIn()) window.location.href = 'index.html';
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const btn = document.getElementById('registerBtn');
+      const errEl = document.getElementById('registerError');
+      errEl.textContent = '';
+      btn.disabled = true; btn.textContent = 'Đang đăng ký...';
+
+      const result = register(
+        document.getElementById('name').value,
+        document.getElementById('email').value,
+        document.getElementById('password').value
+      );
+
+      if (!result.ok) {
+        errEl.textContent = result.error;
+        btn.disabled = false; btn.textContent = 'Đăng ký';
+        return;
+      }
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

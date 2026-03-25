@@ -1,0 +1,5 @@
+[
+  { "id": "a1", "name": "Hướng Dương", "price": 15000, "originalPrice": 20000, "category": "accessories", "description": "Hướng dương vị sữa dừa", "image": "../img/product-1.png", "stock": 50, "rating": 4.3 },
+  { "id": "a2", "name": "Ly Sứ Cao Cấp", "price": 45000, "originalPrice": 60000, "category": "accessories", "description": "Ly sứ cao cấp, giữ nhiệt tốt", "image": "../img/product-2.png", "stock": 30, "rating": 4.5 },
+  { "id": "a3", "name": "Phin Cà Phê", "price": 35000, "originalPrice": 40000, "category": "accessories", "description": "Phin cà phê inox, bền đẹp", "image": "../img/product-3.png", "stock": 60, "rating": 4.7 }
+]

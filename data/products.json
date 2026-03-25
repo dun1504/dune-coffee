@@ -1,0 +1,8 @@
+[
+  { "id": "1", "name": "Espresso", "price": 25000, "originalPrice": 30000, "category": "coffee", "description": "Cà phê Espresso đậm đà, nguyên chất", "image": "../img/menu-1.png", "stock": 100, "rating": 4.5 },
+  { "id": "2", "name": "Capuchino", "price": 28000, "originalPrice": 30000, "category": "coffee", "description": "Cà phê Capuchino thơm ngon, béo ngậy", "image": "../img/menu-2.png", "stock": 100, "rating": 4.8 },
+  { "id": "3", "name": "Robusta", "price": 16000, "originalPrice": 20000, "category": "coffee", "description": "Cà phê nguyên chất từ Tây Nguyên", "image": "../img/menu-3.png", "stock": 100, "rating": 4.2 },
+  { "id": "4", "name": "Culi", "price": 26000, "originalPrice": 30000, "category": "coffee", "description": "Cà phê Culi đặc biệt, hương vị độc đáo", "image": "../img/menu-4.png", "stock": 100, "rating": 4.6 },
+  { "id": "5", "name": "Late", "price": 29000, "originalPrice": 50000, "category": "coffee", "description": "Cà phê Late mịn màng, thơm lừng", "image": "../img/menu-5.png", "stock": 100, "rating": 4.7 },
+  { "id": "6", "name": "Moka", "price": 25000, "originalPrice": 20000, "category": "coffee", "description": "Cà phê thượng hạng, hương vị tinh tế", "image": "../img/menu-6.png", "stock": 100, "rating": 4.9 }
+]

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đặt hàng thành công – Na Coffee</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="index.html" class="logo">Na Coffee</a>
+    </nav>
+  </header>
+
+  <div style="max-width:600px;margin:4rem auto;padding:0 1rem;text-align:center;">
+    <div style="font-size:4rem;margin-bottom:1rem;">✅</div>
+    <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:.5rem;">Đặt hàng thành công!</h1>
+    <p style="color:#555;margin-bottom:1.5rem;">Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ liên hệ sớm nhất.</p>
+    <div id="orderDetail" style="background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:1.5rem;text-align:left;margin-bottom:1.5rem;"></div>
+    <a href="index.html" class="btn-primary">Tiếp tục mua hàng</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const orders = JSON.parse(localStorage.getItem('na_orders') || '[]');
+    const order = orders.find(o => o.id === id);
+
+    if (order) {
+      document.getElementById('orderDetail').innerHTML = `
+        <p style="font-size:.875rem;color:#888;margin-bottom:.75rem;">Mã đơn: <strong>#${order.id}</strong></p>
+        <p style="font-size:.875rem;margin-bottom:.5rem;">Người nhận: <strong>${order.deliveryDetails.name}</strong></p>
+        <p style="font-size:.875rem;margin-bottom:.5rem;">Địa chỉ: ${order.deliveryDetails.address}</p>
+        <p style="font-size:.875rem;margin-bottom:.75rem;">Trạng thái: <span style="color:#d97706;font-weight:600;">${order.status}</span></p>
+        <hr style="margin-bottom:.75rem;border-color:#f3f4f6;" />
+        ${order.items.map(i => `
+          <div style="display:flex;justify-content:space-between;font-size:.875rem;padding:.3rem 0;">
+            <span>${i.name} × ${i.qty}</span>
+            <span>${(i.price * i.qty).toLocaleString('vi-VN')}đ</span>
+          </div>`).join('')}
+        <div style="display:flex;justify-content:space-between;font-weight:700;margin-top:.75rem;font-size:1rem;">
+          <span>Tổng cộng:</span>
+          <span style="color:#d97706;">${order.total.toLocaleString('vi-VN')}đ</span>
+        </div>`;
+    }
+  </script>
+</body>
+</html>

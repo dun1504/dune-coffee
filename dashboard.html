@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tài khoản – Na Coffee</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="index.html" class="logo">Na Coffee</a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-link-btn">Trang chủ</a>
+        <button class="nav-link-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="dashboard-page">
+    <h1>Tài khoản của tôi</h1>
+
+    <!-- Profile -->
+    <div class="dashboard-section">
+      <h2>Thông tin cá nhân</h2>
+      <form class="profile-form" onsubmit="saveProfile(event)">
+        <input type="text" id="profileName" placeholder="Họ tên" />
+        <input type="email" id="profileEmail" placeholder="Email" disabled style="background:#f3f4f6;color:#888" />
+        <button type="submit" class="btn-primary">Lưu thay đổi</button>
+      </form>
+      <p id="profileMsg" style="margin-top:.75rem;font-size:.875rem;color:#16a34a;"></p>
+    </div>
+
+    <!-- Orders -->
+    <div class="dashboard-section">
+      <h2>Lịch sử đơn hàng</h2>
+      <div id="orderList"><p style="color:#aaa;font-size:.875rem;">Chưa có đơn hàng nào.</p></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Guard: redirect if not logged in
+    if (!isLoggedIn()) window.location.href = 'login.html';
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // Populate profile fields
+    const user = getUser();
+    if (user) {
+      document.getElementById('profileName').value = user.name || '';
+      document.getElementById('profileEmail').value = user.email || '';
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      const name = document.getElementById('profileName').value.trim();
+      if (!name) return;
+      const updated = { ...getUser(), name };
+      setUser(updated);
+      document.getElementById('profileMsg').textContent = 'Đã lưu thay đổi!';
+      showToast('Cập nhật thành công');
+    }
+
+    // Load orders from localStorage
+    function loadOrders() {
+      const orders = JSON.parse(localStorage.getItem('na_orders') || '[]')
+        .filter(o => o.userId === user?.id);
+      const el = document.getElementById('orderList');
+      if (!orders.length) return;
+      el.innerHTML = orders.reverse().map(o => `
+        <div class="order-item">
+          <strong>Đơn #${o.id}</strong>
+          <span class="order-status" style="margin-left:.5rem;">${o.status}</span>
+          <p>Ngày: ${new Date(o.date).toLocaleDateString('vi-VN')}</p>
+          <p>Tổng: <strong style="color:#d97706">${o.total.toLocaleString('vi-VN')}đ</strong></p>
+          <p>Sản phẩm: ${o.items.map(i => `${i.name} x${i.qty}`).join(', ')}</p>
+        </div>`).join('');
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>
