@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đăng nhập – Na Coffee</title>
+  <title>Đăng nhập – Dune Coffee</title>
   <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
 
   <header class="navbar">
     <nav class="container nav-inner">
-      <a href="index.html" class="logo">Na Coffee</a>
+      <a href="index.html" class="logo">Dune Coffee</a>
       <div class="nav-actions">
         <a href="register.html" class="nav-link-btn">Đăng ký</a>
       </div>
@@ -36,7 +36,6 @@
   <script>
     const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
 
-    // Redirect if already logged in
     if (isLoggedIn()) window.location.href = redirectTo;
 
     function showToast(msg) {

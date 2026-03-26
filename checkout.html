@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thanh toán – Na Coffee</title>
+  <title>Thanh toán – Dune Coffee</title>
   <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
 
   <header class="navbar">
     <nav class="container nav-inner">
-      <a href="index.html" class="logo">Na Coffee</a>
+      <a href="index.html" class="logo">Dune Coffee</a>
       <div class="nav-actions">
         <a href="index.html" class="nav-link-btn">← Tiếp tục mua</a>
       </div>
@@ -23,7 +23,6 @@
       <p>Giỏ hàng trống. <a href="index.html" style="color:#d97706">Quay lại mua hàng</a></p>
     </div>
     <div class="checkout-grid" id="checkoutContent">
-      <!-- Order summary -->
       <div class="checkout-section">
         <h2>Đơn hàng của bạn</h2>
         <div id="orderSummary"></div>
@@ -33,7 +32,6 @@
         </div>
       </div>
 
-      <!-- Delivery form -->
       <div class="checkout-section">
         <h2>Thông tin giao hàng</h2>
         <form class="checkout-form" onsubmit="placeOrder(event)">
@@ -101,7 +99,6 @@
         date: new Date().toISOString(),
       };
 
-      // Save order to localStorage
       const orders = JSON.parse(localStorage.getItem('na_orders') || '[]');
       orders.push(order);
       localStorage.setItem('na_orders', JSON.stringify(orders));
@@ -114,12 +111,10 @@
       }, 1200);
     }
 
-    // Auth guard — redirect to login if not logged in, then come back
     if (!isLoggedIn()) {
       window.location.href = 'login.html?redirect=checkout.html';
     } else {
       renderSummary();
-      // Pre-fill name from user profile
       const u = getUser();
       if (u) document.getElementById('deliveryName').value = u.name || '';
     }

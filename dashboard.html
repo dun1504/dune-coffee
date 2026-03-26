@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tài khoản – Na Coffee</title>
+  <title>Tài khoản – Dune Coffee</title>
   <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
 
   <header class="navbar">
     <nav class="container nav-inner">
-      <a href="index.html" class="logo">Na Coffee</a>
+      <a href="index.html" class="logo">Dune Coffee</a>
       <div class="nav-actions">
         <a href="index.html" class="nav-link-btn">Trang chủ</a>
         <button class="nav-link-btn" onclick="logout()">Đăng xuất</button>
@@ -21,7 +21,6 @@
   <div class="dashboard-page">
     <h1>Tài khoản của tôi</h1>
 
-    <!-- Profile -->
     <div class="dashboard-section">
       <h2>Thông tin cá nhân</h2>
       <form class="profile-form" onsubmit="saveProfile(event)">
@@ -32,7 +31,6 @@
       <p id="profileMsg" style="margin-top:.75rem;font-size:.875rem;color:#16a34a;"></p>
     </div>
 
-    <!-- Orders -->
     <div class="dashboard-section">
       <h2>Lịch sử đơn hàng</h2>
       <div id="orderList"><p style="color:#aaa;font-size:.875rem;">Chưa có đơn hàng nào.</p></div>
@@ -44,7 +42,6 @@
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
   <script>
-    // Guard: redirect if not logged in
     if (!isLoggedIn()) window.location.href = 'login.html';
 
     function showToast(msg) {
@@ -53,7 +50,6 @@
       setTimeout(() => t.classList.remove('show'), 2800);
     }
 
-    // Populate profile fields
     const user = getUser();
     if (user) {
       document.getElementById('profileName').value = user.name || '';
@@ -70,7 +66,6 @@
       showToast('Cập nhật thành công');
     }
 
-    // Load orders from localStorage
     function loadOrders() {
       const orders = JSON.parse(localStorage.getItem('na_orders') || '[]')
         .filter(o => o.userId === user?.id);
